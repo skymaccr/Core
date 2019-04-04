@@ -25,6 +25,10 @@ namespace Library.API.Controllers
             _mapper = mapper;
         }
 
+        /// <summary>
+        /// Gets the authors.
+        /// </summary>
+        /// <returns>authors</returns>
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Author>>> GetAuthors()
         {
@@ -32,6 +36,11 @@ namespace Library.API.Controllers
             return Ok(_mapper.Map<IEnumerable<Author>>(authorsFromRepo));
         }
 
+        /// <summary>
+        /// Gets the author.
+        /// </summary>
+        /// <param name="authorId">The author identifier.</param>
+        /// <returns>authors</returns>
         [HttpGet("{authorId}")]
         public async Task<ActionResult<Author>> GetAuthor(
             Guid authorId)
@@ -45,6 +54,12 @@ namespace Library.API.Controllers
             return Ok(_mapper.Map<Author>(authorFromRepo));
         }
 
+        /// <summary>
+        /// Updates the author.
+        /// </summary>
+        /// <param name="authorId">The author identifier.</param>
+        /// <param name="authorForUpdate">The author for update.</param>
+        /// <returns>authors</returns>
         [HttpPut("{authorId}")]
         public async Task<ActionResult<Author>> UpdateAuthor(
             Guid authorId,
@@ -66,6 +81,22 @@ namespace Library.API.Controllers
             return Ok(_mapper.Map<Author>(authorFromRepo)); 
         }
 
+        /// <summary>
+        /// Updates the author.
+        /// </summary>
+        /// <param name="authorId">The author identifier.</param>
+        /// <param name="patchDocument">The patch document.</param>
+        /// <returns>authors</returns>
+        /// <remarks>Sample request (This request updates the author's first name) \
+        /// PATCH /authors/id \
+        /// [ \
+        ///         { \
+        ///             "op":"replace", \
+        ///             "path":"/firstname", \
+        ///             "value":"new first name" \
+        ///         } \
+        /// ]
+        /// </remarks>
         [HttpPatch("{authorId}")]
         public async Task<ActionResult<Author>> UpdateAuthor(
             Guid authorId,
